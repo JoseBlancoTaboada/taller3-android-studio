@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Desde Android 9 el HTTP sin cifrar viene bloqueado. Solo se permite hacia 10.0.2.2,
+         el alias con el que el emulador llega al PC. Para probar en un celular real, agrega
+         aquí la IP del PC (por ejemplo 192.168.1.31) y cambia url_servidor en strings.xml. -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">10.0.2.2</domain>
+    </domain-config>
+</network-security-config>
