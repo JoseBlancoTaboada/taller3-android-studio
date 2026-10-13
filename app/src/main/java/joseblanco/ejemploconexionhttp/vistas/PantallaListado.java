@@ -32,13 +32,11 @@ import joseblanco.ejemploconexionhttp.controladores.SegundoPlano;
 import joseblanco.ejemploconexionhttp.datos.Mensaje;
 import joseblanco.ejemploconexionhttp.datos.Usuario;
 
-/** Pantalla de listado: pide todos los usuarios al servicio (accion=listar) y los muestra en un ListView. */
 public class PantallaListado extends AppCompatActivity {
 
     private final ConexionHttpPostServer conexionServidor = new ConexionHttpPostServer();
     private ArrayAdapter<String> items;
     private ProgressBar progreso;
-    /** El usuario que inició sesión; se le pasa a la pantalla de edición. */
     private Usuario sesion;
 
     @Override
@@ -87,7 +85,6 @@ public class PantallaListado extends AppCompatActivity {
                 });
     }
 
-    /** El servicio responde un arreglo de usuarios, o {"mensaje": "No hay Usuarios"} si la tabla está vacía. */
     private void mostrarUsuarios(String json) {
         try {
             Gson gson = new Gson();
@@ -106,7 +103,6 @@ public class PantallaListado extends AppCompatActivity {
                 return;
             }
         } catch (JsonParseException e) {
-            // El cuerpo no era JSON: se avisa abajo.
         }
         avisar(getString(R.string.error_respuesta));
     }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Necesario para hablar con el servicio PHP por HTTP. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

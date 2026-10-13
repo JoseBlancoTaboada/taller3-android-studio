@@ -1,21 +1,17 @@
 <resources>
     <string name="app_name">EjemploConexionHttp</string>
 
-    <!-- Dirección del servicio PHP. 10.0.2.2 es el alias con el que el emulador llega al PC.
-         En un celular real hay que poner la IP del PC (y permitirla en network_security_config.xml). -->
     <string name="url_servidor" translatable="false">http://10.0.2.2/crudphpjson/crud/operacion.php</string>
 
     <string name="label_listado">Listado de usuarios</string>
     <string name="label_datos">Datos del usuario</string>
 
-    <!-- Pantalla de inicio de sesión -->
     <string name="titulo_inicio">INICIAR SESIÓN</string>
     <string name="lbl_email">EMAIL:</string>
     <string name="lbl_clave">PASSWORD:</string>
     <string name="boton_registrarse">Regístrate</string>
     <string name="boton_entrar">Entrar</string>
 
-    <!-- Pantalla de datos del usuario -->
     <string name="titulo_datos">DATOS DEL USUARIO</string>
     <string name="lbl_email_datos">Email:</string>
     <string name="lbl_clave_datos">Password:</string>
@@ -24,12 +20,10 @@
     <string name="boton_modificar">Modificar</string>
     <string name="boton_cancelar">Cancelar</string>
 
-    <!-- Pantalla de listado -->
     <string name="titulo_listado">Todos los usuarios</string>
     <string name="boton_editar_datos">Edita tus datos</string>
     <string name="formato_usuario">%1$s - %2$s</string>
 
-    <!-- Avisos -->
     <string name="error_falta_email">Debe ingresar el email</string>
     <string name="error_email_invalido">El email no es válido</string>
     <string name="error_falta_clave">Debe ingresar el password</string>

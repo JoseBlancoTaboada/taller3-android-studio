@@ -28,11 +28,6 @@ import joseblanco.ejemploconexionhttp.controladores.SegundoPlano;
 import joseblanco.ejemploconexionhttp.datos.Mensaje;
 import joseblanco.ejemploconexionhttp.datos.Usuario;
 
-/**
- * Pantalla de datos del usuario. Sirve para dos cosas:
- * si llega sin usuario en el Intent registra uno nuevo (accion=Agregar); si llega con el usuario
- * que inició sesión, muestra sus datos y los modifica (accion=editar).
- */
 public class PantallaCrudUsuario extends AppCompatActivity {
 
     private final ConexionHttpPostServer conexionServidor = new ConexionHttpPostServer();
@@ -42,7 +37,6 @@ public class PantallaCrudUsuario extends AppCompatActivity {
     private Button botonModificar;
     private Button botonCancelar;
     private ProgressBar progreso;
-    /** null = registro nuevo; con datos = edición del usuario que inició sesión. */
     private Usuario sesion;
 
     @Override
@@ -66,7 +60,7 @@ public class PantallaCrudUsuario extends AppCompatActivity {
         sesion = IntentCompat.getSerializableExtra(getIntent(), PantallaInicio.EXTRA_SESION, Usuario.class);
         if (sesion != null) {
             campoEmail.setText(sesion.getEmail());
-            campoEmail.setEnabled(false); // el email es la llave de la tabla: al editar no se cambia
+            campoEmail.setEnabled(false);
             campoClave.setText(sesion.getPassword());
             campoNombre.setText(sesion.getNombre());
             botonModificar.setText(R.string.boton_modificar);
@@ -123,13 +117,11 @@ public class PantallaCrudUsuario extends AppCompatActivity {
                 });
     }
 
-    /** El servicio responde {"mensaje": "OK"} si guardó, o el motivo del fallo. */
     private void procesarRespuesta(String json) {
         try {
             Mensaje mensaje = new Gson().fromJson(json, Mensaje.class);
             if (mensaje != null && "OK".equalsIgnoreCase(mensaje.getMensaje())) {
                 avisar(getString(R.string.aviso_guardado));
-                // Igual que en la guía: tras guardar se vuelve al inicio de sesión.
                 startActivity(new Intent(this, PantallaInicio.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return;
             }
@@ -138,7 +130,6 @@ public class PantallaCrudUsuario extends AppCompatActivity {
                 return;
             }
         } catch (JsonParseException e) {
-            // El cuerpo no era JSON: se avisa abajo.
         }
         avisar(getString(R.string.error_respuesta));
     }

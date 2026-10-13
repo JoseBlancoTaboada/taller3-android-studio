@@ -11,27 +11,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-/**
- * Envía una petición HTTP POST con parámetros de formulario al servicio PHP y devuelve el
- * cuerpo de la respuesta (JSON) como texto.
- * <p>
- * Reemplaza al HttpClient de Apache que usa la guía (versión 3.x, sin mantenimiento desde 2011)
- * por HttpURLConnection, que ya viene incluida en Android. Es Java puro, sin clases de Android,
- * por eso se puede probar con JUnit sin necesidad del emulador.
- * <p>
- * Debe llamarse desde un hilo secundario: Android no permite red en el hilo principal.
- */
 public class ConexionHttpPostServer {
 
     private static final int TIEMPO_CONEXION_MS = 5000;
     private static final int TIEMPO_LECTURA_MS = 10000;
 
-    /**
-     * @param parametros            pares nombre/valor del formulario, en el orden en que se enviarán
-     * @param rutaDeLaAplicacionWeb dirección completa del servicio (http://...)
-     * @return el cuerpo de la respuesta decodificado como UTF-8 (puede venir vacío)
-     * @throws IOException si no hay conexión, se acaba el tiempo o el servidor no responde 200
-     */
     public String conexionConElServidor(Map<String, String> parametros, String rutaDeLaAplicacionWeb)
             throws IOException {
         byte[] cuerpo = codificar(parametros).getBytes(StandardCharsets.UTF_8);
@@ -60,7 +44,6 @@ public class ConexionHttpPostServer {
         }
     }
 
-    /** Arma "nombre=valor&nombre=valor" escapando cada parte en UTF-8 (tildes, ñ, &, =, + y espacios). */
     static String codificar(Map<String, String> parametros) throws UnsupportedEncodingException {
         StringBuilder texto = new StringBuilder();
         for (Map.Entry<String, String> parametro : parametros.entrySet()) {

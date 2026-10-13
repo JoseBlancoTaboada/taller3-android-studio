@@ -26,10 +26,8 @@ import joseblanco.ejemploconexionhttp.controladores.SegundoPlano;
 import joseblanco.ejemploconexionhttp.datos.Mensaje;
 import joseblanco.ejemploconexionhttp.datos.Usuario;
 
-/** Pantalla de inicio de sesión: valida el email y el password contra el servicio PHP. */
 public class PantallaInicio extends AppCompatActivity {
 
-    /** Clave con la que viaja el Usuario de una pantalla a otra dentro del Intent. */
     public static final String EXTRA_SESION = "sesion";
 
     private final ConexionHttpPostServer conexionServidor = new ConexionHttpPostServer();
@@ -56,7 +54,6 @@ public class PantallaInicio extends AppCompatActivity {
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         progreso = findViewById(R.id.progreso);
 
-        // Sin usuario en el Intent, la pantalla de datos funciona como registro nuevo.
         btnRegistrarse.setOnClickListener(v -> startActivity(new Intent(this, PantallaCrudUsuario.class)));
         btnIniciarSesion.setOnClickListener(v -> iniciarSesion());
     }
@@ -96,7 +93,6 @@ public class PantallaInicio extends AppCompatActivity {
                 });
     }
 
-    /** El servicio responde el usuario completo si el acceso es correcto, o {"mensaje": "..."} si no. */
     private void procesarRespuesta(String json) {
         try {
             Gson gson = new Gson();
@@ -112,7 +108,6 @@ public class PantallaInicio extends AppCompatActivity {
                 return;
             }
         } catch (JsonParseException e) {
-            // El cuerpo no era JSON (por ejemplo, una página de error de PHP): se avisa abajo.
         }
         avisar(getString(R.string.error_respuesta));
     }

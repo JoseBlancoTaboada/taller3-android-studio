@@ -15,14 +15,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-/** Comprueba que Gson entiende el JSON real que devuelve operacion.php. */
 public class ModelosJsonTest {
 
     private final Gson gson = new Gson();
 
     @Test
     public void leeUnUsuarioConTildesEscapadasPorPhp() {
-        // json_encode de PHP escribe "José" como José
         String json = "{\"email\":\"ana@ejemplo.com\",\"password\":\"1234\",\"nombre\":\"Jos\\u00e9 \\u00d1and\\u00fa\"}";
 
         Usuario usuario = gson.fromJson(json, Usuario.class);
@@ -53,7 +51,6 @@ public class ModelosJsonTest {
 
     @Test
     public void elUsuarioSobreviveAlViajeDentroDeUnIntent() throws Exception {
-        // Un Intent copia sus extras Serializable de esta misma forma
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         try (ObjectOutputStream salida = new ObjectOutputStream(bytes)) {
             salida.writeObject(new Usuario("ana@ejemplo.com", "1234", "Ana"));

@@ -20,12 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Prueba la clase HTTP contra un servidor falso que vive dentro de la propia prueba: un
- * ServerSocket que atiende una petición y responde lo que cada prueba decida. No necesita
- * emulador ni XAMPP. (No se usa com.sun.net.httpserver porque Android compila las pruebas
- * contra su propio android.jar y esa clase del JDK no está ahí.)
- */
 public class ConexionHttpPostServerTest {
 
     private ServerSocket servidor;
@@ -87,11 +81,9 @@ public class ConexionHttpPostServerTest {
             salida.write(bytes);
             salida.flush();
         } catch (IOException e) {
-            // El servidor se cierra al terminar la prueba: no es un fallo.
         }
     }
 
-    /** Lee byte por byte hasta la línea en blanco que separa las cabeceras del cuerpo. */
     private static String leerCabecera(InputStream entrada) throws IOException {
         StringBuilder cabecera = new StringBuilder();
         int b;
@@ -118,9 +110,7 @@ public class ConexionHttpPostServerTest {
         assertEquals("POST", metodoRecibido);
         assertTrue(tipoRecibido.startsWith("application/x-www-form-urlencoded"));
         assertTrue(tipoRecibido.toLowerCase(Locale.ROOT).contains("charset=utf-8"));
-        // Los bytes de la tilde y la eñe viajan como UTF-8 (é = C3 A9, Ñ = C3 91, ú = C3 BA)
         assertTrue(cuerpoRecibido.contains("nombre=Jos%C3%A9+%C3%91and%C3%BA"));
-        // Y el servidor los puede volver a armar tal cual, con & y = incluidos en los valores
         Map<String, String> recibidos = new LinkedHashMap<>();
         for (String par : cuerpoRecibido.split("&")) {
             String[] partes = par.split("=", 2);

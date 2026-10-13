@@ -30,7 +30,6 @@ function login() {
         if ($res != NULL && $res->num_rows > 0) {
             $json = json_encode($res->fetch_assoc());
             echo $json;
-            /* liberar el conjunto de resultados */
             $res->free();
         } else {
             echo json_encode(array("mensaje" => "Acceso denegado"));
@@ -63,7 +62,6 @@ function guardar() {
     try {
         $res = consultar("SELECT * FROM Usuarios WHERE email = '$email'");
         if ($res != NULL && $res->num_rows > 0) {
-            // Agregar no debe pisar a un usuario que ya existe (la guía lo sobrescribía en silencio).
             if ($accion == "Agregar") {
                 echo json_encode(array("mensaje" => "El usuario ya existe"));
                 return;
@@ -84,7 +82,6 @@ function listar() {
         if ($res != NULL && $res->num_rows > 0) {
             $json = json_encode($res->fetch_all(1));
             echo $json;
-            /* liberar el conjunto de resultados */
             $res->free();
         } else {
             echo json_encode(array("mensaje" => "No hay Usuarios"));
